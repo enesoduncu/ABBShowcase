@@ -5,6 +5,9 @@ import config
 import pandas as pd
 from datetime import datetime
 
+# Authentifizierung importieren
+from auth import AuthManager, check_authentication, login_page, show_user_info
+
 # Services importieren
 from services.abb_service import ABBService
 from services.einsatz_service import EinsatzService
@@ -16,6 +19,7 @@ from ui.pages.einsatz_verwaltung import einsatz_verwaltung_page
 from ui.pages.zuordnungen import zuordnungen_page
 from ui.pages.berichte import berichte_page
 from ui.pages.einstellungen import einstellungen_page
+from ui.pages.benutzer_verwaltung import benutzer_verwaltung_page
 
 # Seitenkonfiguration
 st.set_page_config(
@@ -50,6 +54,14 @@ st.markdown("""
 def main():
     """Hauptfunktion der Anwendung"""
     
+    # Authentifizierung initialisieren
+    auth_manager = AuthManager()
+    
+    # Überprüfen, ob der Benutzer angemeldet ist
+    if not check_authentication():
+        login_page(auth_manager)
+        return
+    
     # Datenbank initialisieren
     try:
         create_tables()
@@ -62,10 +74,19 @@ def main():
         st.markdown('<h1 class="main-header">🎓 ABB Streamlit</h1>', unsafe_allow_html=True)
         st.markdown("---")
         
+        # Benutzerinformationen anzeigen
+        show_user_info()
+        
         # Navigation
+        navigation_options = ["🏠 Dashboard", "👥 ABB verwalten", "📅 Einsätze verwalten", "🔗 Zuordnungen", "📊 Berichte", "⚙️ Einstellungen"]
+        
+        # Benutzerverwaltung nur für Admins anzeigen
+        if st.session_state.user and st.session_state.user.get('role') == 'admin':
+            navigation_options.append("👥 Benutzerverwaltung")
+        
         page = st.selectbox(
             "Navigation",
-            ["🏠 Dashboard", "👥 ABB verwalten", "📅 Einsätze verwalten", "🔗 Zuordnungen", "📊 Berichte", "⚙️ Einstellungen"]
+            navigation_options
         )
     
     # Seiteninhalt basierend auf Auswahl
@@ -81,6 +102,8 @@ def main():
         berichte_page()
     elif page == "⚙️ Einstellungen":
         einstellungen_page()
+    elif page == "👥 Benutzerverwaltung":
+        benutzer_verwaltung_page()
 
 def dashboard_page():
     """Dashboard-Seite"""
