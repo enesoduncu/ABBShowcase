@@ -1,0 +1,16 @@
+{
+  "admin": {
+    "username": "admin",
+    "name": "Administrator",
+    "password": "$2b$12$PwgT3i4E9yrK/neWe2YRseYRWqjwQxfW5KhvhoGSl6xE7JTo8/FY2",
+    "role": "admin",
+    "email": "admin@abb-streamlit.de"
+  },
+  "philippredlinger": {
+    "username": "philippredlinger",
+    "name": "Philipp Redlinger",
+    "password": "$2b$12$GjXxnHvRUeV7QkGskpkOp.6rgStlCl3RIYqBzpXgLnDKnzlWkGi1O",
+    "role": "user",
+    "email": "Philipp.Redlinger@stuttgart.ihk.de"
+  }
+}
