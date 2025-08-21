@@ -4,12 +4,14 @@ Eine Streamlit-basierte Web-Applikation zur Verwaltung von Ausbildungsbotschafte
 
 ## Features
 
+- **🔐 Authentifizierung**: Sichere Anmeldung mit Benutzerverwaltung
 - **ABB-Verwaltung**: Vollständige CRUD-Operationen für Ausbildungsbotschafter
 - **Einsatz-Verwaltung**: Schuleinsätze mit automatischer 25er-Gruppen-Aufteilung
 - **Zuordnungen**: Verknüpfung von ABB mit Einsätzen
 - **Dashboard**: Kennzahlen und Visualisierungen
 - **Import/Export**: CSV-Import und -Export für alle Tabellen
 - **Berichte**: Verschiedene Auswertungen und Exportmöglichkeiten
+- **Benutzerverwaltung**: Benutzer anlegen und verwalten (nur für Admins)
 
 ## Installation
 
@@ -41,11 +43,32 @@ python seed_data.py
 streamlit run app.py
 ```
 
+## 🔐 Authentifizierung
+
+Die Anwendung verfügt über ein sicheres Authentifizierungssystem:
+
+### Standard-Anmeldedaten
+- **Benutzername**: `admin`
+- **Passwort**: `admin123`
+
+### Wichtige Sicherheitshinweise
+⚠️ **Ändern Sie das Standard-Passwort nach der ersten Anmeldung!**
+
+### Benutzerrollen
+- **Admin**: Vollzugriff auf alle Funktionen inklusive Benutzerverwaltung
+- **User**: Zugriff auf alle Anwendungsfunktionen (außer Benutzerverwaltung)
+
+### Neue Benutzer hinzufügen
+1. Melden Sie sich als Administrator an
+2. Navigieren Sie zu "👥 Benutzerverwaltung"
+3. Fügen Sie neue Benutzer hinzu oder ändern Sie Passwörter
+
 ## Projektstruktur
 
 ```
 ABBStreamlit/
 ├── app.py                 # Hauptanwendung
+├── auth.py               # Authentifizierung
 ├── requirements.txt       # Python-Abhängigkeiten
 ├── .env                  # Umgebungsvariablen
 ├── alembic.ini          # Alembic-Konfiguration
@@ -54,6 +77,12 @@ ABBStreamlit/
 ├── services/             # Geschäftslogik
 ├── ui/                   # UI-Komponenten
 │   └── pages/           # Streamlit-Seiten
+│       ├── abb_verwaltung.py
+│       ├── einsatz_verwaltung.py
+│       ├── zuordnungen.py
+│       ├── berichte.py
+│       ├── einstellungen.py
+│       └── benutzer_verwaltung.py
 ├── schemas/              # Pydantic-Schemas
 ├── utils/                # Hilfsfunktionen
 └── tests/                # Tests
@@ -83,17 +112,20 @@ ABBStreamlit/
 
 ## Verwendung
 
-1. **Dashboard**: Übersicht über Kennzahlen und Statistiken
-2. **ABB verwalten**: Ausbildungsbotschafter anlegen, bearbeiten und verwalten
-3. **Einsätze verwalten**: Schuleinsätze planen und organisieren
-4. **Zuordnungen**: ABB zu Einsätzen zuordnen
-5. **Berichte**: Verschiedene Auswertungen und Exporte
-6. **Einstellungen**: Konfiguration und Backup-Funktionen
+1. **🔐 Anmeldung**: Sichere Anmeldung mit Benutzername und Passwort
+2. **Dashboard**: Übersicht über Kennzahlen und Statistiken
+3. **ABB verwalten**: Ausbildungsbotschafter anlegen, bearbeiten und verwalten
+4. **Einsätze verwalten**: Schuleinsätze planen und organisieren
+5. **Zuordnungen**: ABB zu Einsätzen zuordnen
+6. **Berichte**: Verschiedene Auswertungen und Exporte
+7. **Einstellungen**: Konfiguration und Backup-Funktionen
+8. **Benutzerverwaltung**: Benutzer anlegen und verwalten (nur für Admins)
 
 ## Technische Details
 
 - **Backend**: SQLite mit SQLAlchemy ORM
 - **Frontend**: Streamlit
+- **Authentifizierung**: bcrypt für sichere Passwort-Hashing
 - **Validierung**: Pydantic-Schemas
 - **Migrationen**: Alembic
 - **Tests**: Unit-Tests für Services
