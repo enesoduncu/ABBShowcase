@@ -6,7 +6,7 @@ import pandas as pd
 from datetime import datetime
 
 # Authentifizierung importieren
-from auth import AuthManager, check_authentication, login_page, show_user_info
+from auth import AuthManager, check_authentication, login_page, show_user_info, force_password_change_page
 
 # Services importieren
 from services.abb_service import ABBService
@@ -60,6 +60,11 @@ def main():
     # Überprüfen, ob der Benutzer angemeldet ist
     if not check_authentication():
         login_page(auth_manager)
+        return
+    
+    # Überprüfen, ob Passwort-Änderung erforderlich ist
+    if st.session_state.user and st.session_state.user.get('force_password_change'):
+        force_password_change_page(auth_manager)
         return
     
     # Datenbank initialisieren

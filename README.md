@@ -43,16 +43,26 @@ python seed_data.py
 streamlit run app.py
 ```
 
-## 🔐 Authentifizierung
+## 🔐 Erweiterte Authentifizierung & Sicherheit
 
-Die Anwendung verfügt über ein sicheres Authentifizierungssystem:
+Die Anwendung verfügt über ein hochsicheres Authentifizierungssystem mit erweiterten Sicherheitsfeatures:
+
+### 🚀 Neue Sicherheitsfeatures
+- **🔒 Erzwungene Passwort-Änderung** bei erster Anmeldung
+- **⏰ Automatische Session-Timeout** (8 Stunden)
+- **🛡️ Brute-Force-Schutz** mit Konto-Sperre
+- **📊 Umfassende Sicherheitsüberwachung**
+- **🔐 Strenge Passwort-Richtlinien** (12+ Zeichen, alle Zeichentypen)
+- **📝 Sicherheits-Logging** aller Aktivitäten
 
 ### Standard-Anmeldedaten
 - **Benutzername**: `admin`
-- **Passwort**: `admin123`
+- **Passwort**: Wird automatisch generiert und in der Konsole angezeigt
 
-### Wichtige Sicherheitshinweise
-⚠️ **Ändern Sie das Standard-Passwort nach der ersten Anmeldung!**
+### ⚠️ Wichtige Sicherheitshinweise
+- **Passwort-Änderung ist bei erster Anmeldung zwingend erforderlich**
+- **Strenge Passwort-Richtlinien müssen eingehalten werden**
+- **Session läuft automatisch nach 8 Stunden ab**
 
 ### Benutzerrollen
 - **Admin**: Vollzugriff auf alle Funktionen inklusive Benutzerverwaltung
@@ -62,6 +72,14 @@ Die Anwendung verfügt über ein sicheres Authentifizierungssystem:
 1. Melden Sie sich als Administrator an
 2. Navigieren Sie zu "👥 Benutzerverwaltung"
 3. Fügen Sie neue Benutzer hinzu oder ändern Sie Passwörter
+4. Alle neuen Benutzer müssen ihr Passwort bei der ersten Anmeldung ändern
+
+### 🔒 Sicherheitskonfiguration
+Alle Sicherheitseinstellungen können über Umgebungsvariablen angepasst werden:
+- Passwort-Länge und -Komplexität
+- Session-Timeout
+- Login-Versuche und Konto-Sperre
+- Passwort-Ablaufzeit
 
 ## Projektstruktur
 
@@ -125,14 +143,45 @@ ABBStreamlit/
 
 - **Backend**: SQLite mit SQLAlchemy ORM
 - **Frontend**: Streamlit
-- **Authentifizierung**: bcrypt für sichere Passwort-Hashing
+- **🔐 Authentifizierung**: 
+  - bcrypt für sichere Passwort-Hashing
+  - Erweiterte Sicherheitsfeatures
+  - Session-Management mit Timeout
+  - Brute-Force-Schutz
 - **Validierung**: Pydantic-Schemas
 - **Migrationen**: Alembic
+- **🔒 Sicherheit**: 
+  - Sichere Passwort-Generierung
+  - Umfassende Sicherheitsüberwachung
+  - Konfigurierbare Sicherheitseinstellungen
 - **Tests**: Unit-Tests für Services
 - **Smoke-Tests ausführen:**
   ```bash
   python test_smoke.py
   ```
+
+## 🔒 Sicherheitsarchitektur
+
+### Passwort-Sicherheit
+- **Mindestlänge**: 12 Zeichen
+- **Komplexität**: Groß-/Kleinbuchstaben, Zahlen, Sonderzeichen
+- **Hashing**: bcrypt mit Salt
+- **Ablaufzeit**: 90 Tage (konfigurierbar)
+
+### Session-Sicherheit
+- **Timeout**: 8 Stunden (konfigurierbar)
+- **Token**: Sichere Session-Tokens
+- **Automatische Abmeldung** bei Inaktivität
+
+### Konto-Schutz
+- **Max. Login-Versuche**: 5 (konfigurierbar)
+- **Konto-Sperre**: 30 Minuten (konfigurierbar)
+- **Brute-Force-Erkennung**
+
+### Überwachung
+- **Sicherheits-Logging** aller Aktivitäten
+- **Passwort-Änderungen** protokolliert
+- **Login-Versuche** aufgezeichnet
 
 ## Support
 
