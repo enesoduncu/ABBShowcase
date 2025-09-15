@@ -4,7 +4,11 @@
     "name": "Administrator",
     "password": "$2b$12$PwgT3i4E9yrK/neWe2YRseYRWqjwQxfW5KhvhoGSl6xE7JTo8/FY2",
     "role": "admin",
-    "email": "admin@abb-streamlit.de"
+    "email": "admin@abb-streamlit.de",
+    "login_attempts": 5,
+    "locked_until": "2025-09-05T12:01:23.124069",
+    "last_login": "2025-09-05T11:34:05.899523",
+    "session_token": "5pcws_x8ZBMgsaLAvMYWoAY3H33cbRn20lstImUo8JQ"
   },
   "philippredlinger": {
     "username": "philippredlinger",

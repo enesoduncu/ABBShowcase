@@ -1,0 +1,188 @@
+# ABB Streamlit - Ausbildungsbotschafter Verwaltung
+
+Eine Streamlit-basierte Web-Applikation zur Verwaltung von Ausbildungsbotschaftern (ABB), Schuleinsätzen/Terminen sowie der Teilnehmer-Verknüpfung.
+
+## Features
+
+- **🔐 Authentifizierung**: Sichere Anmeldung mit Benutzerverwaltung
+- **ABB-Verwaltung**: Vollständige CRUD-Operationen für Ausbildungsbotschafter
+- **Einsatz-Verwaltung**: Schuleinsätze mit automatischer 25er-Gruppen-Aufteilung
+- **Zuordnungen**: Verknüpfung von ABB mit Einsätzen
+- **Dashboard**: Kennzahlen und Visualisierungen
+- **Import/Export**: CSV-Import und -Export für alle Tabellen
+- **Berichte**: Verschiedene Auswertungen und Exportmöglichkeiten
+- **Benutzerverwaltung**: Benutzer anlegen und verwalten (nur für Admins)
+
+## Installation
+
+1. **Repository klonen oder herunterladen**
+2. **Python 3.11+ installieren**
+3. **Abhängigkeiten installieren:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+4. **Datenbank initialisieren (optional - wird automatisch erstellt):**
+   ```bash
+   python seed_data.py
+   ```
+5. **App starten:**
+   ```bash
+   streamlit run app.py
+   ```
+
+## Schnellstart
+
+```bash
+# Abhängigkeiten installieren
+pip install -r requirements.txt
+
+# Beispieldaten laden (optional)
+python seed_data.py
+
+# Anwendung starten
+streamlit run app.py
+```
+
+## 🔐 Erweiterte Authentifizierung & Sicherheit
+
+Die Anwendung verfügt über ein hochsicheres Authentifizierungssystem mit erweiterten Sicherheitsfeatures:
+
+### 🚀 Neue Sicherheitsfeatures
+- **🔒 Erzwungene Passwort-Änderung** bei erster Anmeldung
+- **⏰ Automatische Session-Timeout** (8 Stunden)
+- **🛡️ Brute-Force-Schutz** mit Konto-Sperre
+- **📊 Umfassende Sicherheitsüberwachung**
+- **🔐 Strenge Passwort-Richtlinien** (12+ Zeichen, alle Zeichentypen)
+- **📝 Sicherheits-Logging** aller Aktivitäten
+
+### Standard-Anmeldedaten
+- **Benutzername**: `admin`
+- **Passwort**: Wird automatisch generiert und in der Konsole angezeigt
+
+### ⚠️ Wichtige Sicherheitshinweise
+- **Passwort-Änderung ist bei erster Anmeldung zwingend erforderlich**
+- **Strenge Passwort-Richtlinien müssen eingehalten werden**
+- **Session läuft automatisch nach 8 Stunden ab**
+
+### Benutzerrollen
+- **Admin**: Vollzugriff auf alle Funktionen inklusive Benutzerverwaltung
+- **User**: Zugriff auf alle Anwendungsfunktionen (außer Benutzerverwaltung)
+
+### Neue Benutzer hinzufügen
+1. Melden Sie sich als Administrator an
+2. Navigieren Sie zu "👥 Benutzerverwaltung"
+3. Fügen Sie neue Benutzer hinzu oder ändern Sie Passwörter
+4. Alle neuen Benutzer müssen ihr Passwort bei der ersten Anmeldung ändern
+
+### 🔒 Sicherheitskonfiguration
+Alle Sicherheitseinstellungen können über Umgebungsvariablen angepasst werden:
+- Passwort-Länge und -Komplexität
+- Session-Timeout
+- Login-Versuche und Konto-Sperre
+- Passwort-Ablaufzeit
+
+## Projektstruktur
+
+```
+ABBStreamlit/
+├── app.py                 # Hauptanwendung
+├── auth.py               # Authentifizierung
+├── requirements.txt       # Python-Abhängigkeiten
+├── .env                  # Umgebungsvariablen
+├── alembic.ini          # Alembic-Konfiguration
+├── data/                 # Datenbankdateien
+├── models/               # SQLAlchemy-Models
+├── services/             # Geschäftslogik
+├── ui/                   # UI-Komponenten
+│   └── pages/           # Streamlit-Seiten
+│       ├── abb_verwaltung.py
+│       ├── einsatz_verwaltung.py
+│       ├── zuordnungen.py
+│       ├── berichte.py
+│       ├── einstellungen.py
+│       └── benutzer_verwaltung.py
+├── schemas/              # Pydantic-Schemas
+├── utils/                # Hilfsfunktionen
+└── tests/                # Tests
+```
+
+## Datenmodell
+
+### Ausbildungsbotschafter (ABB)
+- Persönliche Daten, Kontaktinformationen
+- Berufliche Informationen und Ausbildung
+- Bereich (IHK, HWK, sonstiges)
+
+### Einsätze
+- Schuleinsätze mit maximal 25 Schülern pro Eintrag
+- Automatische Aufteilung bei größeren Gruppen
+- Schul- und Termininformationen
+
+### Zuordnungen
+- Many-to-Many-Beziehung zwischen ABB und Einsätzen
+- Rollen und Kommentare möglich
+
+## Geschäftsregeln
+
+- **Max 25 Regel**: Einsätze werden automatisch in Gruppen von maximal 25 Schülern aufgeteilt
+- **Dubletten-Schutz**: Optionaler Check für ABB-Duplikate
+- **Validierung**: Umfassende Eingabevalidierung mit Pydantic
+
+## Verwendung
+
+1. **🔐 Anmeldung**: Sichere Anmeldung mit Benutzername und Passwort
+2. **Dashboard**: Übersicht über Kennzahlen und Statistiken
+3. **ABB verwalten**: Ausbildungsbotschafter anlegen, bearbeiten und verwalten
+4. **Einsätze verwalten**: Schuleinsätze planen und organisieren
+5. **Zuordnungen**: ABB zu Einsätzen zuordnen
+6. **Berichte**: Verschiedene Auswertungen und Exporte
+7. **Einstellungen**: Konfiguration und Backup-Funktionen
+8. **Benutzerverwaltung**: Benutzer anlegen und verwalten (nur für Admins)
+
+## Technische Details
+
+- **Backend**: SQLite mit SQLAlchemy ORM
+- **Frontend**: Streamlit
+- **🔐 Authentifizierung**: 
+  - bcrypt für sichere Passwort-Hashing
+  - Erweiterte Sicherheitsfeatures
+  - Session-Management mit Timeout
+  - Brute-Force-Schutz
+- **Validierung**: Pydantic-Schemas
+- **Migrationen**: Alembic
+- **🔒 Sicherheit**: 
+  - Sichere Passwort-Generierung
+  - Umfassende Sicherheitsüberwachung
+  - Konfigurierbare Sicherheitseinstellungen
+- **Tests**: Unit-Tests für Services
+- **Smoke-Tests ausführen:**
+  ```bash
+  python test_smoke.py
+  ```
+
+## 🔒 Sicherheitsarchitektur
+
+### Passwort-Sicherheit
+- **Mindestlänge**: 12 Zeichen
+- **Komplexität**: Groß-/Kleinbuchstaben, Zahlen, Sonderzeichen
+- **Hashing**: bcrypt mit Salt
+- **Ablaufzeit**: 90 Tage (konfigurierbar)
+
+### Session-Sicherheit
+- **Timeout**: 8 Stunden (konfigurierbar)
+- **Token**: Sichere Session-Tokens
+- **Automatische Abmeldung** bei Inaktivität
+
+### Konto-Schutz
+- **Max. Login-Versuche**: 5 (konfigurierbar)
+- **Konto-Sperre**: 30 Minuten (konfigurierbar)
+- **Brute-Force-Erkennung**
+
+### Überwachung
+- **Sicherheits-Logging** aller Aktivitäten
+- **Passwort-Änderungen** protokolliert
+- **Login-Versuche** aufgezeichnet
+
+## Support
+
+Bei Fragen oder Problemen wenden Sie sich an das Entwicklungsteam.
