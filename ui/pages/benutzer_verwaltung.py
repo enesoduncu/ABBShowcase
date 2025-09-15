@@ -171,9 +171,7 @@ def benutzer_verwaltung_page():
         st.warning(f"""
         **⚠️ Sicherheitsfeatures:**
         - Session-Timeout: {SecurityConfig.SESSION_TIMEOUT_HOURS} Stunden
-        - Max. Login-Versuche: {SecurityConfig.MAX_LOGIN_ATTEMPTS}
-        - Konto-Sperre: {SecurityConfig.LOCKOUT_DURATION_MINUTES} Minuten
         - Passwort-Änderungspflicht bei erster Anmeldung
-        - Brute-Force-Schutz
         - Sichere Passwort-Hashing mit bcrypt
+        - Starke Passwort-Anforderungen
         """)
